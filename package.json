@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "decorate-component-with-props": "^1.1.0",
+    "is-url": "^1.2.4",
     "prop-types": "^15.6.1",
     "union-class-names": "^1.0.0"
   }
