@@ -1,11 +1,15 @@
 import decorateComponentWithProps from 'decorate-component-with-props';
-import isUrl from 'is-url';
-import addEmbed from './modifiers/addEmbed';
-import { ATOMIC } from './constants';
+import { EmbedButton, Embeder, Embed } from './components';
+import { addBlock, addAtomicBlock, removeBlock } from './modifiers';
+import { fetchUrlMetadata } from './utils';
+import { EditorState } from 'draft-js';
+import defaultTheme from './plugin.css';
 
-const defultOptions = {
+const ATOMIC = 'atomic';
+const defaultOptions = {
   placehoder: 'Paste a link to embed content and press Enter',
   handleOnReturn: true,
+  handleOnPaste: false,
 
   // Your API key.
   apiKey: null,
@@ -27,33 +31,115 @@ const defultOptions = {
 
 export default ({
   theme = {},
-  options = defultOptions,
-  entityType = 'draft-js-iframely-plugin-embed'
+  options = {},
+  embederType = 'draft-js-iframely-plugin-embeder',
+  embedType = 'draft-js-iframely-plugin-embed',
+  decorator = (component) => component
 } = {}) => {
 
-  return {
-    blockRendererFn: (block, { getEditorState }) => {
-      if (block.getType() === ATOMIC) {
-        const contentState = getEditorState().getCurrentContent();
-        const entity = block.getEntityAt(0);
+  // Modifiers.
+  const addEmbeder = (editorState, data = {}) => addBlock(editorState, embederType, data);
+  const addEmbed = (editorState, data) => addAtomicBlock(editorState, embedType, data);
 
-        if (entity && contentState.getEntity(entity).getType() === entityType) {
+  // Plugin.
+  const pluginOptions = Object.assign({}, defaultOptions, options);
+  const pluginTheme = Object.assign({}, defaultTheme, theme);
+
+  const ThemedEmbeder = decorateComponentWithProps(Embeder, { theme: pluginTheme });
+  const DecoratedEmbed = decorator(Embed);
+  const ThemedEmbed = decorateComponentWithProps(DecoratedEmbed, { theme: pluginTheme });
+
+  return {
+    blockRendererFn: (block, { getEditorState, setEditorState, setReadOnly }) => {
+      // Add Embed?
+      if (block.getType() == ATOMIC) {
+        const contentState = getEditorState().getCurrentContent();
+        const entityKey = block.getEntityAt(0);
+
+        if (!entityKey) {
+          return null;
+        }
+
+        const entity = contentState.getEntity(entityKey);
+
+        if (entity.getType() === embedType) {
           return {
-            component: <div/>,
+            component: ThemedEmbed,
             editable: false,
             props: entity.getData()
           };
         }
       }
 
+      // Embedding?
+      else if (block.getType() === embederType) {
+        return {
+          component: ThemedEmbeder,
+          editable: false,
+          props: {
+            placeholder: pluginOptions.placehoder,
+            setReadOnly,
+
+            onCancel: (block) => {
+              setEditorState(removeBlock(getEditorState(), block.key));
+            },
+
+            onRequest: async (block, text) => {
+              const data = await fetchUrlMetadata(text, pluginOptions);
+              let editorState = removeBlock(getEditorState(), block.key);
+
+              if (data) {
+                editorState = addEmbed(editorState, data);
+              }
+
+              setEditorState(editorState);
+            }
+          }
+        };
+      }
+
       return null;
     },
 
-    handleReturn: async (event, editorState, { setEditorState }) => {
+    handlePastedText: async (text, html, editorState, { setEditorState }) => {
+      if (!pluginOptions.handleOnPaste) {
+        return 'not-handled';
+      }
+
+      const data = await fetchUrlMetadata(text.trim(), pluginOptions);
+
+      if (data) {
+        setEditorState(addEmbed(editorState, data));
+        return 'handled';
+      }
+
+      return 'not-handled';
     },
 
-    addEmbed: (editorState, data) => {
-      return addEmbed(editorState, data, entityType);
-    }
+    handleReturn: async (event, editorState, { setEditorState }) => {
+      if (!pluginOptions.handleOnReturn) {
+        return 'not-handled';
+      }
+
+      const contentState = editorState.getCurrentContent();
+      const startKey = editorState.getSelection().getStartKey();
+      const contentBlock = contentState.getBlockForKey(startKey);
+      const data = await fetchUrlMetadata(contentBlock.getText().trim(), pluginOptions);
+
+      if (data) {
+        setEditorState(addEmbed(editorState, data));
+        return 'handled';
+      }
+
+      return 'not-handled';
+    },
+
+    EmbedButton: decorateComponentWithProps(EmbedButton, {
+      entityType: embederType,
+      addEmbeder,
+    }),
+
+    addEmbeder,
+    addEmbed
   };
 };
