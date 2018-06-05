@@ -2,6 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Embed extends React.PureComponent {
+  componentWillMount() {
+    // Or if you prefer, in your index.html:
+    // <script src="//cdn.iframe.ly/embed.js" async></script>
+    if (!window.iframely) {
+      const script = document.createElement('script');
+
+      script.async = 1;
+      script.src = '//cdn.iframe.ly/embed.js';
+      script.onload = () => {
+        iframely.load();
+      };
+
+      document.body.appendChild(script);
+    }
+  }
+
   render () {
     const {
       theme,
