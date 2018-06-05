@@ -6,7 +6,7 @@ class EmbedButton extends React.PureComponent {
     event.preventDefault();
 
     this.props.setEditorState(
-      this.props.addEmbeder(this.props.getEditorState())
+      this.props.addEmbedder(this.props.getEditorState())
     );
   };
 
@@ -55,7 +55,7 @@ EmbedButton.propTypes = {
   entityType: PropTypes.string.isRequired,
   getEditorState: PropTypes.func.isRequired,
   setEditorState: PropTypes.func.isRequired,
-  addEmbeder: PropTypes.func.isRequired  
+  addEmbedder: PropTypes.func.isRequired  
 };
 
 EmbedButton.defaultProps = {

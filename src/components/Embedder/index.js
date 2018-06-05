@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Embeder extends React.PureComponent {
+class Embedder extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { text: '' }; 
@@ -40,13 +40,13 @@ class Embeder extends React.PureComponent {
         
     return (
       <div
-        className={theme.embederContainer}
+        className={theme.embedderContainer}
         onBlur={this.cancel}
         onFocus={this.onFocus} >
 
         <input 
           ref={ref => this.input = ref}
-          className={theme.embederInput}
+          className={theme.embedderInput}
           placeholder={placeholder}
           value={this.state.text}
           onChange={this.onChange}
@@ -57,7 +57,7 @@ class Embeder extends React.PureComponent {
   }
 }
 
-Embeder.propTypes = {
+Embedder.propTypes = {
   block: PropTypes.object,
   blockProps: PropTypes.shape({
     placeholder: PropTypes.string.isRequired,
@@ -67,4 +67,4 @@ Embeder.propTypes = {
   })
 };
 
-export default Embeder;
+export default Embedder;

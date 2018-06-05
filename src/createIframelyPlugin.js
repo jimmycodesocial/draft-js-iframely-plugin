@@ -1,5 +1,5 @@
 import decorateComponentWithProps from 'decorate-component-with-props';
-import { EmbedButton, Embeder, Embed } from './components';
+import { EmbedButton, Embedder, Embed } from './components';
 import { addBlock, addAtomicBlock, removeBlock } from './modifiers';
 import { fetchUrlMetadata } from './utils';
 import { EditorState } from 'draft-js';
@@ -14,7 +14,7 @@ const defaultOptions = {
   // Your API key.
   apiKey: null,
 
-  // Param to pass in the request.
+  // Params to pass in the request.
   // see: https://iframely.com/docs/parameters
   params: {
     iframe: 1,
@@ -32,20 +32,20 @@ const defaultOptions = {
 export default ({
   theme = {},
   options = {},
-  embederType = 'draft-js-iframely-plugin-embeder',
+  embedderType = 'draft-js-iframely-plugin-embedder',
   embedType = 'draft-js-iframely-plugin-embed',
   decorator = (component) => component
 } = {}) => {
 
   // Modifiers.
-  const addEmbeder = (editorState, data = {}) => addBlock(editorState, embederType, data);
+  const addEmbedder = (editorState, data = {}) => addBlock(editorState, embedderType, data);
   const addEmbed = (editorState, data) => addAtomicBlock(editorState, embedType, data);
 
   // Plugin.
   const pluginOptions = Object.assign({}, defaultOptions, options);
   const pluginTheme = Object.assign({}, defaultTheme, theme);
 
-  const ThemedEmbeder = decorateComponentWithProps(Embeder, { theme: pluginTheme });
+  const ThemedEmbedder = decorateComponentWithProps(Embedder, { theme: pluginTheme });
   const DecoratedEmbed = decorator(Embed);
   const ThemedEmbed = decorateComponentWithProps(DecoratedEmbed, { theme: pluginTheme });
 
@@ -72,9 +72,9 @@ export default ({
       }
 
       // Embedding?
-      else if (block.getType() === embederType) {
+      else if (block.getType() === embedderType) {
         return {
-          component: ThemedEmbeder,
+          component: ThemedEmbedder,
           editable: false,
           props: {
             placeholder: pluginOptions.placehoder,
@@ -135,11 +135,11 @@ export default ({
     },
 
     EmbedButton: decorateComponentWithProps(EmbedButton, {
-      entityType: embederType,
-      addEmbeder,
+      entityType: embedderType,
+      addEmbedder,
     }),
 
-    addEmbeder,
+    addEmbedder,
     addEmbed
   };
 };

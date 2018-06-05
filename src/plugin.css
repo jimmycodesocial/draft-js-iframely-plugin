@@ -1,9 +1,9 @@
-.embederContainer {
+.embedderContainer {
   width: 100%;
   outline: none
 }
 
-.embederInput {
+.embedderInput {
   width: 100%;
   outline: none;
   font-size: inherit;
