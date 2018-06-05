@@ -6,8 +6,17 @@ Embed links with iframe.ly into your draft-js editor.
 ![Demo](plugin.gif)
 
 ## Installation
+
 ```
 npm install draft-js-iframely-plugin
+```
+
+*Optional*
+In your index.html include the embed.js provided by Iframely.
+In case of omit it, it will be included with thr first embedded URL.
+
+```html
+<script src="//cdn.iframe.ly/embed.js" async></script>
 ```
 
 ## Usage
@@ -70,13 +79,16 @@ module.exports = {
   }
 };
 ``` 
+
 3.  Add the below import line to your component to tell Webpack to inject the style to your component.
+
 
 ```js
 import 'draft-js-iframely-plugin/lib/plugin.css';
 ```
 
 ## Example
+
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -212,6 +224,7 @@ class MyEditor extends React.Component {
 ReactDOM.render(<MyEditor />, document.getElementById('root'));
 
 ```
+
 #### Axios
 See how to provide your own implementation to fetch the URL.
 `onRequest` Must return a `Promise` that resolves to a JSON with the metadata.
@@ -222,7 +235,7 @@ import axios from 'axios';
 
 const iframelyPlugin = createIframelyPlugin({
   options: {
-    apiKey: '<my-pi-key>',
+    apiKey: '<my-api-key>',
     onRequest: (url) => {
       return axios.get(url).then(res => res.data);
     }
