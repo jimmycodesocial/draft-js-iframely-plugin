@@ -34,7 +34,8 @@ export default ({
   options = {},
   embedderType = 'draft-js-iframely-plugin-embedder',
   embedType = 'draft-js-iframely-plugin-embed',
-  decorator = (component) => component
+  decorator = (component) => component,
+  embedComponent = Embed
 } = {}) => {
 
   // Modifiers.
@@ -46,7 +47,7 @@ export default ({
   const pluginTheme = Object.assign({}, defaultTheme, theme);
 
   const ThemedEmbedder = decorateComponentWithProps(Embedder, { theme: pluginTheme });
-  const DecoratedEmbed = decorator(Embed);
+  const DecoratedEmbed = decorator(embedComponent);
   const ThemedEmbed = decorateComponentWithProps(DecoratedEmbed, { theme: pluginTheme });
 
   return {

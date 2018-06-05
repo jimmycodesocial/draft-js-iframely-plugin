@@ -40,13 +40,14 @@ When integrate the plugin with `draft-js-side-toolbar-plugin` and click the Embe
 Pressing Enter will close and embed the URL; but, losing the focus, pressing ESC or DEL with empty text will close the Embedder.
 
 ## Configuration
-| Param        | Default                             | Description                                                       |
-|--------------|-------------------------------------|-------------------------------------------------------------------|
-| embedderType | 'draft-js-iframely-plugin-embedder' | Type of entity created when inserting the embedder block.         |
-| embedType    | 'draft-js-iframely-plugin-embed'    | Type of entity created when embedding the URL.                    |
-| decorator    | -                                   | Empty decorator that returns the same component. (No decorations) |
-| theme        | Default styles                      | draft-js-iframely-plugin/lib/plugin.css                           |
-| options      | Default behavior                    | List of options.                                                  |
+| Param          | Default                             | Description                                                             |
+|----------------|-------------------------------------|-------------------------------------------------------------------------|
+| theme          | Default styles                      | draft-js-iframely-plugin/lib/plugin.css                                 |
+| options        | Default behavior                    | List of options.                                                        |
+| embedderType   | 'draft-js-iframely-plugin-embedder' | Type of entity created when inserting the embedder block.               |
+| embedType      | 'draft-js-iframely-plugin-embed'    | Type of entity created when embedding the URL.                          |
+| decorator      | -                                   | Empty decorator that returns the same component. (No decorations)       |
+| embedComponent | Default implementation              | Provide your own implementation to embed the URL.                       |
 
 #### Options
 | Option         | Default                                                                                      | Description                                                                                                                       |
