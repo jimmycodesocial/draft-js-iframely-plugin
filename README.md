@@ -26,6 +26,10 @@ const iframelyPlugin = createIframelyPlugin({
 const { EmbedButton } = iframelyPlugin;
 ```
 
+#### Embedder
+When integrate the plugin with `draft-js-side-toolbar-plugin` and click the Embed button, it will display a plceholder where you can paste the URL.
+Pressing Enter will close and embed the URL; but, losing the focus, pressing ESC or DEL with empty text will close the Embedder.
+
 ## Configuration
 | Param        | Default                             | Description                                                       |
 |--------------|-------------------------------------|-------------------------------------------------------------------|
@@ -88,7 +92,7 @@ import 'draft-js-iframely-plugin/lib/plugin.css';
 
 const iframelyPlugin = createIframelyPlugin({
   options: {
-    apiKey: '<my-pi-key>',
+    apiKey: '<my-api-key>',
     handleOnReturn: true,
     handleOnPaste: true
   }
