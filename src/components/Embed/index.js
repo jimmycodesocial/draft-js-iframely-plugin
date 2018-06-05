@@ -15,13 +15,14 @@ class Embed extends React.PureComponent {
       selection, // eslint-disable-line no-unused-vars
       tree, // eslint-disable-line no-unused-vars
       contentState, // eslint-disable-line no-unused-vars
+      blockStyleFn, // eslint-disable-line no-unused-vars
       style,
       className,
       ...elementProps
     } = this.props;
 
     const { html } = blockProps;
-    const classname = `${theme.embed} ${className}`;
+    const classname = `${theme.embed || ''} ${className}`;
 
     if (html) {
       return <div
