@@ -3,6 +3,8 @@ Embed links with iframe.ly into your draft-js editor.
 
 *This is a plugin for `draft-js-plugins-editor`.*
 
+![Demo](plugin.gif)
+
 ## Installation
 ```
 npm install draft-js-iframely-plugin
