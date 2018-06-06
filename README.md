@@ -13,7 +13,7 @@ npm install draft-js-iframely-plugin
 
 *Optional*
 In your index.html include the embed.js provided by Iframely.
-In case of omit it, it will be included with thr first embedded URL.
+In case of omiting it, it will be included with the first embedded URL.
 
 ```html
 <script src="//cdn.iframe.ly/embed.js" async></script>
@@ -21,8 +21,8 @@ In case of omit it, it will be included with thr first embedded URL.
 
 ## Usage
 This plugin embeds URLs in different ways:
-1. When press Enter in a block that the text is a URL.
-2. When paste a text that is a URL (disabled by default).
+1. When pressing Enter in a block where the text is a URL.
+2. When pasting a text that is a URL (disabled by default).
 3. Intregrating the Embed button with `draft-js-side-toolbar-plugin`.
 
 ```js
@@ -36,8 +36,8 @@ const { EmbedButton } = iframelyPlugin;
 ```
 
 #### Embedder
-When integrate the plugin with `draft-js-side-toolbar-plugin` and click the Embed button, it will display a plceholder where you can paste the URL.
-Pressing Enter will close and embed the URL; but, losing the focus, pressing ESC or DEL with empty text will close the Embedder.
+When integrating the plugin with `draft-js-side-toolbar-plugin` and clicking the Embed button, it will display a plceholder where you can paste the URL.
+Pressing Enter will close and embed the URL; but, lose the focus on the editor, pressing ESC or DEL with empty text will close the Embedder.
 
 ## Configuration
 | Param          | Default                             | Description                                                             |
@@ -54,8 +54,8 @@ Pressing Enter will close and embed the URL; but, losing the focus, pressing ESC
 |----------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | apiKey         | (Required)                                                                                   | Iframely API Key.                                                                                                                 |
 | placehoder     | 'Paste a link to embed content and press Enter'                                              | Text as placeholder for the Embedder.                                                                                             |
-| handleOnReturn | true                                                                                         | Embed the text when press Enter if it is a URL.                                                                                   |
-| handleOnPaste  | false                                                                                        | Embed the text pasted if it is a URL.                                                                                             |
+| handleOnReturn | true                                                                                         | Embed the text when pressing Enter if it is a URL.                                                                                   |
+| handleOnPaste  | false                                                                                        | Embed the pasted text if it is a URL.                                                                                             |
 | params         | ``` {   iframe: 1   rel: 'summary',   omit_script: true,   align: 'center',   html5: 1 } ``` | Params to pass in the request.   https://iframely.com/docs/parameters                                                             |
 | onRequest      | `return (await fetch(url)).json()`                                                           | Function to request the metadata of the URL. It will receive the URL to request and MUST return a JSON, contaning the key 'html'. |
 
@@ -64,7 +64,7 @@ The plugin ships with a default styling available at this location in the instal
 
 *Webpack Usage*
 1.  Install Webpack loaders: `npm i style-loader css-loader --save-dev`
-2.  Add the below section to Webpack config (if your config already has a loaders array, simply add the below loader object to your existing list.
+2.  Add the below section to Webpack config (if your config already has a loaders array, simply add the below loader object to your existing list).
 
 ```js
 module.exports = {
