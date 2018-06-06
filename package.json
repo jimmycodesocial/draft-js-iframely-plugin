@@ -1,6 +1,6 @@
 {
   "name": "draft-js-iframely-plugin",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Embed links with iframe.ly into your draft-js editor",
   "keywords": [
     "draft-js",
