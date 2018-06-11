@@ -42,7 +42,7 @@ class Embedder extends React.PureComponent {
       <div
         className={theme.embedderContainer}
         onBlur={this.cancel}
-        onFocus={this.onFocus} >
+        onFocus={this.onFocus}>
 
         <input 
           ref={ref => this.input = ref}

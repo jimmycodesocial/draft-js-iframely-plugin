@@ -8,7 +8,7 @@ Embed links with iframe.ly into your draft-js editor.
 ## Installation
 
 ```
-npm install draft-js-iframely-plugin
+npm install @jimmycode/draft-js-iframely-plugin
 ```
 
 *Optional*
@@ -26,7 +26,7 @@ This plugin embeds URLs in different ways:
 3. Intregrating the Embed button with `draft-js-side-toolbar-plugin`.
 
 ```js
-import createIframelyPlugin from 'draft-js-iframely-plugin';
+import createIframelyPlugin from '@jimmycode/draft-js-iframely-plugin';
 const iframelyPlugin = createIframelyPlugin({
   options: {
     apiKey: 'my-api-key'
@@ -42,7 +42,7 @@ Pressing Enter will close and embed the URL; but, lose the focus on the editor, 
 ## Configuration
 | Param          | Default                             | Description                                                             |
 |----------------|-------------------------------------|-------------------------------------------------------------------------|
-| theme          | Default styles                      | draft-js-iframely-plugin/lib/plugin.css                                 |
+| theme          | Default styles                      | @jimmycode/draft-js-iframely-plugin/lib/plugin.css                      |
 | options        | Default behavior                    | List of options.                                                        |
 | embedderType   | 'draft-js-iframely-plugin-embedder' | Type of entity created when inserting the embedder block.               |
 | embedType      | 'draft-js-iframely-plugin-embed'    | Type of entity created when embedding the URL.                          |
@@ -60,7 +60,7 @@ Pressing Enter will close and embed the URL; but, lose the focus on the editor, 
 | onRequest      | `return (await fetch(url)).json()`                                                           | Function to request the metadata of the URL. It will receive the URL to request and MUST return a JSON, contaning the key 'html'. |
 
 ## Theming
-The plugin ships with a default styling available at this location in the installed package: `node_modules/draft-js-image-plugin/lib/plugin.css`
+The plugin ships with a default styling available at this location in the installed package: `node_modules/@jimmycode/draft-js-iframely-plugin/lib/plugin.css`
 
 *Webpack Usage*
 1.  Install Webpack loaders: `npm i style-loader css-loader --save-dev`
@@ -85,7 +85,7 @@ module.exports = {
 
 
 ```js
-import 'draft-js-iframely-plugin/lib/plugin.css';
+import '@jimmycode/draft-js-iframely-plugin/lib/plugin.css';
 ```
 
 ## Example
@@ -99,9 +99,9 @@ import { EditorState } from 'draft-js';
 import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
 import BlockTypeSelect from 'draft-js-side-toolbar-plugin/lib/components/BlockTypeSelect';
 
-import createIframelyPlugin from 'draft-js-iframely-plugin';
+import createIframelyPlugin from '@jimmycode/draft-js-iframely-plugin';
 import 'draft-js-side-toolbar-plugin/lib/plugin.css';
-import 'draft-js-iframely-plugin/lib/plugin.css';
+import '@jimmycode/draft-js-iframely-plugin/lib/plugin.css';
 
 const iframelyPlugin = createIframelyPlugin({
   options: {
@@ -145,10 +145,10 @@ class MyEditor extends React.Component {
     return (
       <div className="editor">
         <Editor
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            plugins={this.plugins}
-            placeholder="Tell a story" />
+          editorState={this.state.editorState}
+          onChange={this.onChange}
+          plugins={this.plugins}
+          placeholder="Tell a story" />
         <SideToolbar />
       </div>
     );
@@ -168,11 +168,11 @@ import { EditorState } from 'draft-js';
 
 import createFocusPlugin from 'draft-js-focus-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
-import createIframelyPlugin from 'draft-js-iframely-plugin';
+import createIframelyPlugin from '@jimmycode/draft-js-iframely-plugin';
 
 import 'draft-js-focus-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
-import 'draft-js-iframely-plugin/lib/plugin.css';
+import '@jimmycode/draft-js-iframely-plugin/lib/plugin.css';
 
 const focusPlugin = createFocusPlugin();
 const alignmentPlugin = createAlignmentPlugin();
@@ -212,10 +212,10 @@ class MyEditor extends React.Component {
     return (
       <div className="editor">
         <Editor
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            plugins={this.plugins}
-            placeholder="Tell a story" />
+          editorState={this.state.editorState}
+          onChange={this.onChange}
+          plugins={this.plugins}
+          placeholder="Tell a story" />
         <AlignmentTool />
       </div>
     );

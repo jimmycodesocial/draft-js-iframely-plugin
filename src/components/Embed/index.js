@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import unionClassNames from 'union-class-names';
 
 class Embed extends React.PureComponent {
   componentWillMount() {
@@ -37,14 +38,14 @@ class Embed extends React.PureComponent {
       ...elementProps
     } = this.props;
 
-    const { html } = blockProps;
-    const classname = `${theme.embed || ''} ${className}`;
+    const classname = unionClassNames(theme.embed, className);
+    const { html } = contentState.getEntity(block.getEntityAt(0)).getData();
 
     if (html) {
       return <div
         {...elementProps}
         className={classname}
-        contentEditable={false} 
+        contentEditable={false}
         dangerouslySetInnerHTML={{ __html: html }} 
         style={{ display: 'inline-bock', ...style }} />;
     }

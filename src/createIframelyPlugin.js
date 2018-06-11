@@ -1,11 +1,10 @@
 import decorateComponentWithProps from 'decorate-component-with-props';
+import { isBlockWithEntityType, getCurrentBlock, addBlock, addAtomicBlock, removeBlock } from '@jimmycode/draft-js-toolbox';
 import { EmbedButton, Embedder, Embed } from './components';
-import { addBlock, addAtomicBlock, removeBlock } from './modifiers';
 import { fetchUrlMetadata } from './utils';
 import { EditorState } from 'draft-js';
 import defaultTheme from './plugin.css';
 
-const ATOMIC = 'atomic';
 const defaultOptions = {
   placehoder: 'Paste a link to embed content and press Enter',
   handleOnReturn: true,
@@ -35,7 +34,8 @@ export default ({
   embedderType = 'draft-js-iframely-plugin-embedder',
   embedType = 'draft-js-iframely-plugin-embed',
   decorator = (component) => component,
-  embedComponent = Embed
+  embedComponent = Embed,
+  editable = false
 } = {}) => {
 
   // Modifiers.
@@ -53,23 +53,11 @@ export default ({
   return {
     blockRendererFn: (block, { getEditorState, setEditorState, setReadOnly }) => {
       // Add Embed?
-      if (block.getType() == ATOMIC) {
-        const contentState = getEditorState().getCurrentContent();
-        const entityKey = block.getEntityAt(0);
-
-        if (!entityKey) {
-          return null;
-        }
-
-        const entity = contentState.getEntity(entityKey);
-
-        if (entity.getType() === embedType) {
-          return {
-            component: ThemedEmbed,
-            editable: false,
-            props: entity.getData()
-          };
-        }
+      if (isBlockWithEntityType(getEditorState(), block, embedType)) {
+        return {
+          component: ThemedEmbed,
+          editable
+        };
       }
 
       // Embedding?
@@ -122,9 +110,7 @@ export default ({
         return 'not-handled';
       }
 
-      const contentState = editorState.getCurrentContent();
-      const startKey = editorState.getSelection().getStartKey();
-      const contentBlock = contentState.getBlockForKey(startKey);
+      const contentBlock = getCurrentBlock(editorState);
       const data = await fetchUrlMetadata(contentBlock.getText().trim(), pluginOptions);
 
       if (data) {

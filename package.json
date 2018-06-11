@@ -1,6 +1,6 @@
 {
-  "name": "draft-js-iframely-plugin",
-  "version": "0.5.1",
+  "name": "@jimmycode/draft-js-iframely-plugin",
+  "version": "1.0.0",
   "description": "Embed links with iframe.ly into your draft-js editor",
   "keywords": [
     "draft-js",
@@ -75,8 +75,10 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@jimmycode/draft-js-toolbox": "^1.0.0",
     "decorate-component-with-props": "^1.1.0",
     "is-url": "^1.2.4",
-    "prop-types": "^15.6.1"
+    "prop-types": "^15.6.1",
+    "union-class-names": "^1.0.0"
   }
 }
