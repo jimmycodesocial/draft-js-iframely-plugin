@@ -21,7 +21,7 @@ export const encodeParams = (params = {}) => {
 export const buildIframelyUrl = (apiKey, url, params = {}) => {
   const queryString = encodeParams(params);
   
-  return `http://iframe.ly/api/iframely?api_key=${apiKey}&url=${url}&${queryString}`;
+  return `//iframe.ly/api/iframely?api_key=${apiKey}&url=${url}&${queryString}`;
 };
 
 /**
