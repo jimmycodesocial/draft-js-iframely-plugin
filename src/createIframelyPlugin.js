@@ -6,7 +6,7 @@ import { EditorState } from 'draft-js';
 import defaultTheme from './plugin.css';
 
 const defaultOptions = {
-  placehoder: 'Paste a link to embed content and press Enter',
+  placeholder: 'Paste a link to embed content and press Enter',
   handleOnReturn: true,
   handleOnPaste: false,
 
@@ -66,7 +66,7 @@ export default ({
           component: ThemedEmbedder,
           editable: false,
           props: {
-            placeholder: pluginOptions.placehoder,
+            placeholder: pluginOptions.placeholder,
             setReadOnly,
 
             onCancel: (block) => {
